@@ -259,39 +259,3 @@ class Hotel:
 
     def set_location(self, location: str):
         self._location = location
-
-# Scenario 1: Confirmed Reservation
-customer1 = Guest(first_name="Suliman", last_name="Alsalami", email="suliman@example.com", phone_number="0501234567", gender=Gender.MALE, id_number="ID12345", payment_method=PaymentMethod.CREDIT_CARD)
-room1 = Room(room_number=101, room_type="Double", price_per_night=89.95, is_available=True, floor_number=2, number_of_beds=2)
-payment1 = Payment(payment_method=PaymentMethod.CREDIT_CARD, amount=201.48, payment_date=datetime.date.today(), confirmation_number="CONF123")
-reservation1 = RoomBooking(reservation_num="RES123", check_in_date=datetime.date(2024, 10, 22), check_out_date=datetime.date(2024, 10, 24), room_number=101, customer_id="ID12345", total_amount=201.48)
-
-# Print the reservation confirmation details
-print(f"Reservation Status: Confirmed")
-print(f"Guest Name: {customer1.get_first_name()} {customer1.get_last_name()}")
-print(f"Room Type: {room1.get_room_type()}")
-print(f"Total Amount: ${payment1.get_amount()}")
-
-# Scenario 2: Canceled Reservation
-customer2 = Guest(first_name="Afshan", last_name="Parkar", email="afshan@example.com", phone_number="0509876543", gender=Gender.FEMALE, id_number="ID54321", payment_method=PaymentMethod.CASH)
-room2 = Room(room_number=202, room_type="Suite", price_per_night=150.00, is_available=True, floor_number=5, number_of_beds=1)
-payment2 = Payment(payment_method=PaymentMethod.CASH, amount=320.00, payment_date=datetime.date.today(), confirmation_number="CANCEL123")
-reservation2 = RoomBooking(reservation_num="RES456", check_in_date=datetime.date(2024, 11, 10), check_out_date=datetime.date(2024, 11, 12), room_number=202, customer_id="ID54321", total_amount=320.00)
-
-# Print the reservation cancellation details
-print(f"Reservation Status: Cancelled")
-print(f"Guest Name: {customer2.get_first_name()} {customer2.get_last_name()}")
-print(f"Room Type: {room2.get_room_type()}")
-print(f"Total Amount: ${payment2.get_amount()}")
-
-# Scenario 3: Pending Reservation
-customer3 = Guest(first_name="Zayed", last_name="Alkhatheri", email="zayed@example.com", phone_number="0507654321", gender=Gender.MALE, id_number="ID67890", payment_method=PaymentMethod.CREDIT_CARD)
-room3 = Room(room_number=303, room_type="Single", price_per_night=75.00, is_available=True, floor_number=3, number_of_beds=1)
-payment3 = Payment(payment_method=PaymentMethod.CREDIT_CARD, amount=180.00, payment_date=datetime.date.today(), confirmation_number="PENDING123")
-reservation3 = RoomBooking(reservation_num="RES789", check_in_date=datetime.date(2024, 12, 5), check_out_date=datetime.date(2024, 12, 7), room_number=303, customer_id="ID67890", total_amount=180.00)
-
-# Print the pending reservation details
-print(f"Reservation Status: Pending")
-print(f"Guest Name: {customer3.get_first_name()} {customer3.get_last_name()}")
-print(f"Room Type: {room3.get_room_type()}")
-print(f"Total Amount: ${payment3.get_amount()}")
