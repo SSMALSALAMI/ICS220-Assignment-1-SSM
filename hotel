@@ -1,92 +1,297 @@
-class Hotel:
-    def __init__(self, name, location):
-        self.name = name
-        self.location = location
-        self.rooms = []
-        self.employees = []  # Consider using a separate class for users
-        self.bookings = []
-    def add_room(self, room):
-        self.rooms.append(room)
-    def remove_room(self, room):
-        self.rooms.remove(room)
-    # ... other functions like view_rooms, view_employees, etc.
-    def add_guest(self, guest):  # New method for adding guests
-        # Add logic for guest registration and validation
-        self.guests.append(guest)
-    def add_account(self, account):  # New method for adding accounts (optional)
-        # Add logic for account creation and validation
-        self.accounts.append(account)
-    def add_booking(self, guest, room, booking):  # Corrected method
-        self.bookings.append(booking)
+from enum import Enum
+import datetime
+
+# Enumerations for various statuses
+class Gender(Enum):
+    FEMALE = 1
+    MALE = 2
+
+class PaymentMethod(Enum):
+    CREDIT_CARD = 1
+    CASH = 2
+
+class BookingStatus(Enum):
+    REQUESTED = 1
+    PENDING = 2
+    CONFIRMED = 3
+    CANCELLED = 4
+
+class RoomStatus(Enum):
+    RESERVED = 1
+    AVAILABLE = 2
+    OCCUPIED = 3
+    NOT_AVAILABLE = 4
+
+class PaymentStatus(Enum):
+    SUCCESSFUL = 1
+    PENDING = 2
+    FAILED = 3
+    SERVER_ERROR = 4
+
+# Guest Class
 class Guest:
-    def __init__(self, name, address, phone_no, id_no, email):
-        self.name = name
-        self.address = address
-        self.phone_no = phone_no
-        self.id_no = id_no
-        self.email = email
-class Account:
-    def __init__(self, id, password, account_status):
-        self.id = id
-        self.password = password
-        self.account_status = account_status
-class Room:
-    def __init__(self, room_no, room_type, room_price, room_status):
-        self.room_no = room_no
-        self.room_type = room_type
-        self.room_price = room_price
-        self.room_status = room_status
+    def __init__(self, first_name: str, last_name: str, email: str, phone_number: str, gender: Gender, id_number: str, payment_method: PaymentMethod):
+        self._first_name = first_name
+        self._last_name = last_name
+        self._email = email
+        self._phone_number = phone_number
+        self._gender = gender
+        self._id_number = id_number
+        self._payment_method = payment_method
+    
+    # Getters
+    def get_first_name(self):
+        return self._first_name
+
+    def get_last_name(self):
+        return self._last_name
+
+    def get_email(self):
+        return self._email
+
+    def get_phone_number(self):
+        return self._phone_number
+
+    def get_gender(self):
+        return self._gender
+
+    def get_id_number(self):
+        return self._id_number
+
+    def get_payment_method(self):
+        return self._payment_method
+
+    # Setters
+    def set_first_name(self, first_name: str):
+        self._first_name = first_name
+
+    def set_last_name(self, last_name: str):
+        self._last_name = last_name
+
+    def set_email(self, email: str):
+        self._email = email
+
+    def set_phone_number(self, phone_number: str):
+        self._phone_number = phone_number
+
+    def set_gender(self, gender: Gender):
+        self._gender = gender
+
+    def set_id_number(self, id_number: str):
+        self._id_number = id_number
+
+    def set_payment_method(self, payment_method: PaymentMethod):
+        self._payment_method = payment_method
+
+# Room Booking Class
 class RoomBooking:
-    def __init__(self, booking_id, start_date, end_date, days_duration, booking_status):
-        self.booking_id = booking_id
-        self.start_date = start_date
-        self.end_date = end_date
-        self.days_duration = days_duration
-        self.booking_status = booking_status
-    def add_payment(self, payment):
-        # Function to add a payment to the booking
-        pass
+    def __init__(self, reservation_num: str, check_in_date: datetime.date, check_out_date: datetime.date, room_number: int, customer_id: str, total_amount: float):
+        self._reservation_num = reservation_num
+        self._check_in_date = check_in_date
+        self._check_out_date = check_out_date
+        self._room_number = room_number
+        self._customer_id = customer_id
+        self._total_amount = total_amount
+
+    # Getters
+    def get_reservation_num(self):
+        return self._reservation_num
+
+    def get_check_in_date(self):
+        return self._check_in_date
+
+    def get_check_out_date(self):
+        return self._check_out_date
+
+    def get_room_number(self):
+        return self._room_number
+
+    def get_customer_id(self):
+        return self._customer_id
+
+    def get_total_amount(self):
+        return self._total_amount
+
+    # Setters
+    def set_reservation_num(self, reservation_num: str):
+        self._reservation_num = reservation_num
+
+    def set_check_in_date(self, check_in_date: datetime.date):
+        self._check_in_date = check_in_date
+
+    def set_check_out_date(self, check_out_date: datetime.date):
+        self._check_out_date = check_out_date
+
+    def set_room_number(self, room_number: int):
+        self._room_number = room_number
+
+    def set_customer_id(self, customer_id: str):
+        self._customer_id = customer_id
+
+    def set_total_amount(self, total_amount: float):
+        self._total_amount = total_amount
+
+# Room Class
+class Room:
+    def __init__(self, room_number: int, room_type: str, price_per_night: float, is_available: bool, floor_number: int, number_of_beds: int):
+        self._room_number = room_number
+        self._room_type = room_type
+        self._price_per_night = price_per_night
+        self._is_available = is_available
+        self._floor_number = floor_number
+        self._number_of_beds = number_of_beds
+
+    # Getters
+    def get_room_number(self):
+        return self._room_number
+
+    def get_room_type(self):
+        return self._room_type
+
+    def get_price_per_night(self):
+        return self._price_per_night
+
+    def get_is_available(self):
+        return self._is_available
+
+    def get_floor_number(self):
+        return self._floor_number
+
+    def get_number_of_beds(self):
+        return self._number_of_beds
+
+    # Setters
+    def set_room_number(self, room_number: int):
+        self._room_number = room_number
+
+    def set_room_type(self, room_type: str):
+        self._room_type = room_type
+
+    def set_price_per_night(self, price_per_night: float):
+        self._price_per_night = price_per_night
+
+    def set_is_available(self, is_available: bool):
+        self._is_available = is_available
+
+    def set_floor_number(self, floor_number: int):
+        self._floor_number = floor_number
+
+    def set_number_of_beds(self, number_of_beds: int):
+        self._number_of_beds = number_of_beds
+
+# Payment Class
 class Payment:
-    def __init__(self, amount, mode_of_payment, payment_status):
-        self.amount = amount
-        self.mode_of_payment = mode_of_payment
-        self.payment_status = payment_status
-hotel = Hotel("Grand Hotel", "New York")
-hotel.guests = []  # Added a list for guests
-hotel.accounts = []  # Added a list for accounts (optional)
-guest1 = Guest("John Doe", "123 Main St", "555-1234", "123456789", "johndoe@example.com")
-account1 = Account("johndoe123", "password123", "active")  # (Optional)
-room1 = Room("101", "Deluxe", 200.0, "available")
-room_booking1 = RoomBooking("B123", "2024-10-01", "2024-10-05", 5, "confirmed")
-payment1 = Payment(1000.0, "credit card", "successful")
-# Add room to the hotel
-hotel.add_room(room1)
-# Add guest (implement logic in add_guest method)
-hotel.add_guest(guest1)  # Call the new method
-# Add account (optional, implement logic in add_account method)
-hotel.add_account(account1)  # Call the new method (if used)
-# Create a booking (corrected)
-hotel.add_booking(guest1, room1, room_booking1)
-# Add payment to the booking
-room_booking1.add_payment(payment1)
-# View hotel details
-print(hotel.name)
-print(hotel.location)
-# View guest details
-print(guest1.name)
-print(guest1.address)
-# View room details
-print(room1.room_no)
-print(room1.room_type)
-# View booking details
-print(room_booking1.booking_id)
-print(room_booking1.start_date)
-# View payment details
-print(payment1.amount)
-print(payment1.mode_of_payment)
-# Print all objects
-print(hotel)
-print(guest1)
-print(room1)
-print(room_booking1)
-print(payment1)
+    def __init__(self, payment_method: PaymentMethod, amount: float, payment_date: datetime.date, confirmation_number: str):
+        self._payment_method = payment_method
+        self._amount = amount
+        self._payment_date = payment_date
+        self._confirmation_number = confirmation_number
+
+    # Getters
+    def get_payment_method(self):
+        return self._payment_method
+
+    def get_amount(self):
+        return self._amount
+
+    def get_payment_date(self):
+        return self._payment_date
+
+    def get_confirmation_number(self):
+        return self._confirmation_number
+
+    # Setters
+    def set_payment_method(self, payment_method: PaymentMethod):
+        self._payment_method = payment_method
+
+    def set_amount(self, amount: float):
+        self._amount = amount
+
+    def set_payment_date(self, payment_date: datetime.date):
+        self._payment_date = payment_date
+
+    def set_confirmation_number(self, confirmation_number: str):
+        self._confirmation_number = confirmation_number
+
+# Account Class
+class Account:
+    def __init__(self, login_id: int, password: str, status: str):
+        self._login_id = login_id
+        self._password = password
+        self._status = status
+
+    # Getters
+    def get_login_id(self):
+        return self._login_id
+
+    def get_password(self):
+        return self._password
+
+    def get_status(self):
+        return self._status
+
+    # Setters
+    def set_login_id(self, login_id: int):
+        self._login_id = login_id
+
+    def set_password(self, password: str):
+        self._password = password
+
+    def set_status(self, status: str):
+        self._status = status
+
+# Hotel Class
+class Hotel:
+    def __init__(self, name: str, location: str):
+        self._name = name
+        self._location = location
+
+    # Getters
+    def get_name(self):
+        return self._name
+
+    def get_location(self):
+        return self._location
+
+    # Setters
+    def set_name(self, name: str):
+        self._name = name
+
+    def set_location(self, location: str):
+        self._location = location
+
+# Scenario 1: Confirmed Reservation
+customer1 = Guest(first_name="Suliman", last_name="Alsalami", email="suliman@example.com", phone_number="0501234567", gender=Gender.MALE, id_number="ID12345", payment_method=PaymentMethod.CREDIT_CARD)
+room1 = Room(room_number=101, room_type="Double", price_per_night=89.95, is_available=True, floor_number=2, number_of_beds=2)
+payment1 = Payment(payment_method=PaymentMethod.CREDIT_CARD, amount=201.48, payment_date=datetime.date.today(), confirmation_number="CONF123")
+reservation1 = RoomBooking(reservation_num="RES123", check_in_date=datetime.date(2024, 10, 22), check_out_date=datetime.date(2024, 10, 24), room_number=101, customer_id="ID12345", total_amount=201.48)
+
+# Print the reservation confirmation details
+print(f"Reservation Status: Confirmed")
+print(f"Guest Name: {customer1.get_first_name()} {customer1.get_last_name()}")
+print(f"Room Type: {room1.get_room_type()}")
+print(f"Total Amount: ${payment1.get_amount()}")
+
+# Scenario 2: Canceled Reservation
+customer2 = Guest(first_name="Afshan", last_name="Parkar", email="afshan@example.com", phone_number="0509876543", gender=Gender.FEMALE, id_number="ID54321", payment_method=PaymentMethod.CASH)
+room2 = Room(room_number=202, room_type="Suite", price_per_night=150.00, is_available=True, floor_number=5, number_of_beds=1)
+payment2 = Payment(payment_method=PaymentMethod.CASH, amount=320.00, payment_date=datetime.date.today(), confirmation_number="CANCEL123")
+reservation2 = RoomBooking(reservation_num="RES456", check_in_date=datetime.date(2024, 11, 10), check_out_date=datetime.date(2024, 11, 12), room_number=202, customer_id="ID54321", total_amount=320.00)
+
+# Print the reservation cancellation details
+print(f"Reservation Status: Cancelled")
+print(f"Guest Name: {customer2.get_first_name()} {customer2.get_last_name()}")
+print(f"Room Type: {room2.get_room_type()}")
+print(f"Total Amount: ${payment2.get_amount()}")
+
+# Scenario 3: Pending Reservation
+customer3 = Guest(first_name="Zayed", last_name="Alkhatheri", email="zayed@example.com", phone_number="0507654321", gender=Gender.MALE, id_number="ID67890", payment_method=PaymentMethod.CREDIT_CARD)
+room3 = Room(room_number=303, room_type="Single", price_per_night=75.00, is_available=True, floor_number=3, number_of_beds=1)
+payment3 = Payment(payment_method=PaymentMethod.CREDIT_CARD, amount=180.00, payment_date=datetime.date.today(), confirmation_number="PENDING123")
+reservation3 = RoomBooking(reservation_num="RES789", check_in_date=datetime.date(2024, 12, 5), check_out_date=datetime.date(2024, 12, 7), room_number=303, customer_id="ID67890", total_amount=180.00)
+
+# Print the pending reservation details
+print(f"Reservation Status: Pending")
+print(f"Guest Name: {customer3.get_first_name()} {customer3.get_last_name()}")
+print(f"Room Type: {room3.get_room_type()}")
+print(f"Total Amount: ${payment3.get_amount()}")
