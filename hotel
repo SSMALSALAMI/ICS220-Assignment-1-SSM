@@ -134,6 +134,7 @@ class RoomBooking:
         print("Thank you for your reservation. Please print your hotel receipt and show it at check-in.")
         print(f"Your Name: {guest.get_first_name()} {guest.get_last_name()}")
         print(f"Your Email: {guest.get_email()}")
+        print(f"Your Phone Number: {guest.get_phone_number()}")
         print(f"Reservation Number: {self.get_reservation_num()}")
         print(f"Room Number: {self.get_room().get_room_number()} (Floor {self.get_room().get_floor_number()})")
         print(f"Room Type: {self.get_room().get_room_type()}")
